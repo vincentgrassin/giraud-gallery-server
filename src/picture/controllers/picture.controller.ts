@@ -18,4 +18,11 @@ export class PictureController {
   //   const pictureData = await this.pictureService.getPicture(id);
   //   return pictureData;
   // }
+
+  @Get("/upload-data")
+  async uploadData(): Promise<boolean> {
+    const data = await this.pictureService.uploadData();
+
+    return data;
+  }
 }
