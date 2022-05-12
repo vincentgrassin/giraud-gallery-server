@@ -23,10 +23,8 @@ export class PictureService {
   }
 
   uploadData(): boolean {
-    // config pour proteger la route ?
-    // upload photo
+    //TODO: add config to procted route
     // autres routes
-    // tags
 
     const albums = Object.keys(initialDatabase);
     albums.forEach(async (albumKey) => {
@@ -53,6 +51,7 @@ export class PictureService {
             externalId: picture.cloudinaryId,
             height: picture.height,
             width: picture.width,
+            tags: picture.tags,
           });
           // if (newPicture) {
           //   pictures.push(newPicture);

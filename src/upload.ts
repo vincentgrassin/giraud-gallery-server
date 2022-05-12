@@ -395,9 +395,9 @@ const upload = async () => {
           description:
             currentImage["DESCRIPTION PHOTO"] &&
             currentImage["DESCRIPTION PHOTO"],
-          tags:
-            currentImage["MOTS CLES"] &&
-            currentImage["MOTS CLES"].split(",").map((t) => t.trim()),
+          tags: currentImage["MOTS CLES"]
+            ? currentImage["MOTS CLES"].split(",").map((t) => t.trim())
+            : [],
           isQuality: currentImage.QUALITE === "true" ? true : false,
           isCover: currentImage.ISCOVER === "true" ? true : false,
           cloudinaryPublicId: result.public_id,

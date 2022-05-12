@@ -18,8 +18,8 @@ export class PictureEntity {
   @Column({ nullable: true })
   description: string;
 
-  // @Column({ array: true })
-  // tags: string[];
+  @Column("text", { array: true, nullable: true, default: [] })
+  tags: string[];
 
   @Column({ default: false })
   isQuality: boolean;

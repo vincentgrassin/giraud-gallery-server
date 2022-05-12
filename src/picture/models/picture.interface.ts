@@ -6,7 +6,7 @@ export interface Picture {
   externalId: string;
   name: string;
   description?: string;
-  // tags: string[];
+  tags?: string[];
   isQuality: boolean;
   date?: string;
   createdAt: Date;
