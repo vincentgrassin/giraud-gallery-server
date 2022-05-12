@@ -5,7 +5,7 @@ export interface Album {
   publicId: string;
   createdAt: Date;
   name: string;
-  date: string;
+  date?: string;
   numberId: string;
   pictures?: Picture[];
   coverPicture: Picture;
