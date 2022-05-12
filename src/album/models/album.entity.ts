@@ -1,5 +1,12 @@
 import { PictureEntity } from "src/picture/models/picture.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity("album")
 export class AlbumEntity {
@@ -13,11 +20,23 @@ export class AlbumEntity {
   name: string;
 
   @Column()
-  technicalName: string;
+  publicId: string;
+
+  @Column()
+  numberId: string;
 
   @Column()
   date?: string;
 
-  @OneToMany(() => PictureEntity, (pictureEntity) => pictureEntity.album)
-  pictures: PictureEntity[];
+  @OneToMany(() => PictureEntity, (pictureEntity) => pictureEntity.album, {
+    nullable: true,
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+    orphanedRowAction: "delete",
+  })
+  pictures?: PictureEntity[];
+
+  @OneToOne(() => PictureEntity)
+  @JoinColumn()
+  coverPicture: PictureEntity;
 }

@@ -15,7 +15,7 @@ export class PictureEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   // @Column({ array: true })
@@ -24,12 +24,23 @@ export class PictureEntity {
   @Column({ default: false })
   isQuality: boolean;
 
+  @Column({ nullable: true })
+  date?: string;
+
   @Column()
-  date: string;
+  height: number;
+
+  @Column()
+  width: number;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
 
-  @ManyToOne(() => AlbumEntity, (albumEntity) => albumEntity.pictures)
+  @ManyToOne(() => AlbumEntity, (albumEntity) => albumEntity.pictures, {
+    nullable: true,
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+    orphanedRowAction: "delete",
+  })
   album: AlbumEntity;
 }

@@ -23,23 +23,52 @@ export class PictureService {
   }
 
   uploadData(): boolean {
-    console.log("data");
-    console.log(initialDatabase);
+    // config pour proteger la route ?
+    // upload photo
+    // autres routes
+    // tags
+
     const albums = Object.keys(initialDatabase);
+    albums.forEach(async (albumKey) => {
+      console.log("uploading to database", albumKey);
+      const album = initialDatabase[albumKey];
+      // const pictures: PictureEntity[] = [];
+      let coverPicture: PictureEntity;
+      const newAlbum = await this.albumRepository.save({
+        name: album.name,
+        publicId: album.id,
+        numberId: album.number,
+        date: album.date,
+        // pictures: pictures,
+      });
+      const albumPictures = initialDatabase[albumKey].pictures;
 
-    albums.forEach((albumKey) => {
-      // create and save picture
-      // create and save album
-      // const newAlbum: AlbumEntity = {
-      //   name: albumKey,
-      // };
-      // this.albumRepository.save();
+      await Promise.all(
+        albumPictures.map(async (picture) => {
+          const newPicture = await this.pictureRepository.save({
+            album: newAlbum,
+            name: picture.description,
+            isQuality: picture.isQuality,
+            externalPublicId: picture.cloudinaryPublicId,
+            externalId: picture.cloudinaryId,
+            height: picture.height,
+            width: picture.width,
+          });
+          // if (newPicture) {
+          //   pictures.push(newPicture);
+          // }
+          if (picture.isCover) {
+            coverPicture = newPicture;
+          }
+        })
+      );
+      this.albumRepository.save({
+        ...newAlbum,
+        coverPicture,
+        // ,pictures
+      });
     });
-    return true;
-  }
 
-  private createAllPictures(): boolean {
-    console.log("data");
     return true;
   }
 }

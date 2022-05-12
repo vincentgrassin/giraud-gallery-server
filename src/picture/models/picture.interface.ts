@@ -5,10 +5,12 @@ export interface Picture {
   externalPublicId: string;
   externalId: string;
   name: string;
-  description: string;
+  description?: string;
   // tags: string[];
   isQuality: boolean;
-  date: string;
+  date?: string;
   createdAt: Date;
   album: Album;
+  height: number;
+  width: number;
 }
