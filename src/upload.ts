@@ -383,6 +383,7 @@ const upload = async () => {
         );
 
         const publicId = `${cloudRootName}/${albumId}/${file}`;
+        //TODO: replace the ".jpg" to avoid to duplicate it
 
         const result = await cloudinary.uploader.upload(
           `${albumRoot}/${albumId}/${file}`,
